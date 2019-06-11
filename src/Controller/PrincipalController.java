@@ -19,13 +19,15 @@ public class PrincipalController implements Initializable
     @FXML private AnchorPane holderPane;
     @FXML private Button btnAutores,btnHome,btnPricing1;
 
-    AnchorPane AfDashboard, AfAutores;
+    AnchorPane AfDashboard, AfAutores, AfMunicipios, AfUfs;
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         try {
             AfDashboard = FXMLLoader.load(getClass().getResource("/View/Dashboard.fxml"));
             AfAutores = FXMLLoader.load(getClass().getResource("/View/Autores.fxml"));
+            AfMunicipios = FXMLLoader.load(getClass().getResource("/View/Municipios.fxml"));
+            AfUfs = FXMLLoader.load(getClass().getResource("/View/Ufs.fxml"));
             this.setNode(AfDashboard);
         }catch (Exception e) {
             System.out.println("Erro ao iniciar PrincipalController");
@@ -83,11 +85,11 @@ public class PrincipalController implements Initializable
 
     @FXML
     private void toEstado (ActionEvent event) {
-        //setNode(pricing);
+        setNode(AfUfs);
     }
 
     @FXML
     private void toMunicipio (ActionEvent event) {
-        //setNode(pricing);
+        setNode(AfMunicipios);
     }
 }

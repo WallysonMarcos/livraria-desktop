@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="429.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="609.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
 
     <HBox layoutY="176.0" prefHeight="128.0" prefWidth="1164.0" spacing="16.0">
       <padding>
          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding></HBox>
     
-      <Pane layoutX="14.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #00C0EF; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0,0.15), 6.0, 0.7, 0.0,1.5);">
+      <Pane layoutX="14.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #00C0EF;">
           <children>
               <Pane layoutY="101.0" prefHeight="27.0" prefWidth="277.0" style="-fx-background-color: #009ABF;">
                   <children>
@@ -26,10 +29,13 @@
                       <Label prefHeight="43.0" prefWidth="64.0" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="150" />
                       <Label prefHeight="25.0" prefWidth="145.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="New Orders" />
                   </children>
+            <padding>
+               <Insets left="5.0" />
+            </padding>
               </VBox>
           </children>
       </Pane>
-      <Pane layoutX="305.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #00A65A; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+      <Pane layoutX="305.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #00A65A; ">
           <children>
               <Pane layoutY="101.0" prefHeight="27.0" prefWidth="277.0" style="-fx-background-color: #008548;">
                   <children>
@@ -41,10 +47,13 @@
                       <Label prefHeight="43.0" prefWidth="64.0" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="150" />
                       <Label prefHeight="25.0" prefWidth="145.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="New Orders" />
                   </children>
+            <padding>
+               <Insets left="5.0" />
+            </padding>
               </VBox>
           </children>
       </Pane>
-      <Pane layoutX="878.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #DD4B39; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+      <Pane layoutX="878.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #DD4B39; ">
           <children>
               <Pane layoutY="101.0" prefHeight="27.0" prefWidth="277.0" style="-fx-background-color: #B13C2E;">
                   <children>
@@ -56,10 +65,13 @@
                       <Label prefHeight="43.0" prefWidth="64.0" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="150" />
                       <Label prefHeight="25.0" prefWidth="145.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="New Orders" />
                   </children>
+            <padding>
+               <Insets left="5.0" />
+            </padding>
               </VBox>
           </children>
       </Pane>
-      <Pane layoutX="589.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #F39C12; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5);">
+      <Pane layoutX="589.0" layoutY="17.0" prefHeight="128.0" prefWidth="277.0" style="-fx-background-color: #F39C12; ">
           <children>
               <Pane layoutY="101.0" prefHeight="27.0" prefWidth="277.0" style="-fx-background-color: #C37D0E;">
                   <children>
@@ -71,8 +83,19 @@
                       <Label prefHeight="43.0" prefWidth="64.0" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: white;" text="150" />
                       <Label prefHeight="25.0" prefWidth="145.0" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;" text="New Orders" />
                   </children>
+            <padding>
+               <Insets left="5.0" />
+            </padding>
               </VBox>
           </children>
       </Pane>
+   <AreaChart layoutX="20.0" layoutY="165.0" prefHeight="400.0" prefWidth="1134.0">
+     <xAxis>
+       <CategoryAxis side="BOTTOM" />
+     </xAxis>
+     <yAxis>
+       <NumberAxis side="LEFT" />
+     </yAxis>
+   </AreaChart>
 
 </AnchorPane>

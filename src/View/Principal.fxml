@@ -12,7 +12,7 @@
     <children>
         <JFXToolbar layoutX="184.0" layoutY="14.0" prefHeight="40.0" prefWidth="1360.0" style="-fx-min-height: 42; -fx-background-color: #222D32;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
-                <Label prefHeight="23.0" prefWidth="228.0" style="-fx-font-size: 20; -fx-text-fill: #7387A8; -fx-font-weight: bold;" text="LIVRARIA TALKEY" BorderPane.alignment="CENTER">
+                <Label contentDisplay="CENTER" prefHeight="30.0" prefWidth="1294.0" style="-fx-font-size: 20; -fx-text-fill: #7387A8; -fx-font-weight: bold;" text="LIVRARIA TALKEY" BorderPane.alignment="CENTER">
                     <padding>
                         <Insets left="40.0" />
                     </padding>
@@ -26,21 +26,33 @@
 
                 <Button fx:id="btnHome" onAction="#toHome" prefHeight="45.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Home" textFill="#a1aec4">
                <VBox.margin>
-                  <Insets bottom="5.0" />
+                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin></Button>
                 <Button fx:id="btnAutores" onAction="#toAutores" prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Autores" textFill="#a1aec4">
                    <VBox.margin>
-                      <Insets bottom="5.0" />
+                       <Insets bottom="5.0" left="5.0" right="5.0" />
                    </VBox.margin>
                 </Button>
-                <Button  prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Editoras" textFill="#a1aec4">
+                <Button prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Editoras" textFill="#a1aec4">
                    <VBox.margin>
-                      <Insets bottom="5.0" />
+                       <Insets bottom="5.0" left="5.0" right="5.0" />
                    </VBox.margin>
                 </Button>
                 <Button prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Livros" textFill="#a1aec4">
                     <VBox.margin>
-                        <Insets bottom="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                    </VBox.margin>
+                </Button>
+
+                <Button onAction="#toMunicipio" prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Municipios" textFill="#a1aec4">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                    </VBox.margin>
+                </Button>
+
+                <Button onAction="#toEstado" prefHeight="42.0" prefWidth="139.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" styleClass="nav-button" text="Estados" textFill="#a1aec4">
+                    <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
                     </VBox.margin>
                 </Button>
             </children>

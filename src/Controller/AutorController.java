@@ -3,6 +3,7 @@ package Controller;
 import Model.Autor;
 import DAO.AutorDAO;
 
+import Model.Uf;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.beans.property.*;
@@ -22,12 +23,12 @@ public class AutorController  implements Initializable
     @FXML private TableColumn<Autor,Integer> colId = new TableColumn<>("ID");
     @FXML private TableColumn<Autor,String> colNome = new TableColumn<>("NOME");
     @FXML private TableColumn<Autor,String> colEmail = new TableColumn<>("EMAIL");
-    @FXML private Button btnList,btnSalvar,btnDeletar;
+    @FXML private Button btnInserir,btnDeletar,btnRefresh;
     @FXML private TextField txfNome,txfEmail;
 
     private Autor autor = new Autor();
     private AutorDAO autorDao = new AutorDAO();
-    private Autor AutorSelecionado;
+    private Autor ObjetoSelecionado;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -37,47 +38,49 @@ public class AutorController  implements Initializable
 
     public void InitTable()
     {
-        AutorSelecionado = null;
+        ObjetoSelecionado = null;
         tableView.setEditable(true);
         colId.setCellValueFactory( new PropertyValueFactory<Autor,Integer>("id") );
 
         colNome.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNome()) );
         colNome.setCellFactory(TextFieldTableCell.forTableColumn());
+        colNome.setOnEditCommit( SendCommitNome);
 
         colEmail.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getEmail()) );
         colEmail.setCellFactory(TextFieldTableCell.forTableColumn());
-        colEmail.setOnEditCommit(
-                new EventHandler<CellEditEvent<Autor, String>>() {
-                    @Override
-                    public void handle(CellEditEvent<Autor, String> t)
-                    {
-
-                        ((Autor) t.getTableView().getItems().get(
-                                t.getTablePosition().getRow())
-                        ).setEmail(t.getNewValue());
-                        autorDao.alterar( ((Autor) t.getTableView().getItems().get(t.getTablePosition().getRow())));
-                    }
-                }
-        );
+        colEmail.setOnEditCommit(SendCommitEmail);
 
         tableView.setItems(autorDao.listarTodos());
-
-        EventHandler<MouseEvent> clickListener = evt -> {
-            AutorSelecionado = tableView.getSelectionModel().getSelectedItem();
-            if (AutorSelecionado != null)
-                System.out.println("Selecionado: " + AutorSelecionado.getNome());
-        };
-
-        tableView.setOnMouseClicked(clickListener);
+        tableView.setOnMouseClicked(TableClick);
     }
+
+    private EventHandler<MouseEvent> TableClick = evt -> {
+        ObjetoSelecionado = tableView.getSelectionModel().getSelectedItem();
+        if (ObjetoSelecionado != null)
+            System.out.println("Selecionado: " + ObjetoSelecionado.getNome());
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Autor, String> > SendCommitNome = evt -> {
+        ((Autor) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setNome(evt.getNewValue());
+        autorDao.alterar( ((Autor) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Autor, String> > SendCommitEmail = evt -> {
+        ((Autor) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setEmail(evt.getNewValue());
+        autorDao.alterar( ((Autor) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
 
     public void Deletar()
     {
         try
         {
-            if(AutorSelecionado.getId() != 0)
+            if(ObjetoSelecionado.getId() != 0)
             {
-                autorDao.deletar(AutorSelecionado);
+                autorDao.deletar(ObjetoSelecionado);
                 InitTable();
             }
 

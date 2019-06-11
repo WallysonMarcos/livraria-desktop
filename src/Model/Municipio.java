@@ -4,7 +4,8 @@ public class Municipio
 {
     private int id;
     private String nome;
-    private String uf_id;
+    private int uf_id;
+    private String estado;
 
     public Municipio() {
 
@@ -26,11 +27,19 @@ public class Municipio
         this.nome = nome;
     }
 
-    public String getUf_id() {
+    public int getUf_id() {
         return uf_id;
     }
 
-    public void setUf_id(String uf_id) {
+    public void setUf_id(int uf_id) {
         this.uf_id = uf_id;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

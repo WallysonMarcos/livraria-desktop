@@ -28,7 +28,7 @@ public class EditoraController  implements Initializable
     @FXML private TextField txfNome,txfEmail;
 
     private Editora autor = new Editora();
-    private Editora EditoraSelecionado;
+    private Editora ObjetoSelecionado;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -37,14 +37,14 @@ public class EditoraController  implements Initializable
     }
 
     public void InitTable() {
-        EditoraSelecionado = null;
+        ObjetoSelecionado = null;
     }
 
     public void Deletar()
     {
         try
         {
-            if(EditoraSelecionado.getId() != 0)
+            if(ObjetoSelecionado.getId() != 0)
             {
                 InitTable();
             }

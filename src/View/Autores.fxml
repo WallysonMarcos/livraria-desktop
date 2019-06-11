@@ -8,9 +8,9 @@
 
 <AnchorPane prefHeight="680.0" prefWidth="1219.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AutorController">
    <children>
-      <Button fx:id="btnList" layoutX="1111.0" layoutY="624.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Atualizar" />
-      <Button fx:id="btnSalvar" layoutX="1094.0" layoutY="44.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #00A65A; -fx-text-fill: white; -fx-font-size: 14;" text="Inserir" />
-      <Button fx:id="btnDeletar" layoutX="1029.0" layoutY="624.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="Deletar" />
+      <Button fx:id="btnRefresh" onAction="#InitTable" layoutX="1111.0" layoutY="624.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Atualizar" />
+      <Button fx:id="btnInserir" onAction="#Inserir" layoutX="1094.0" layoutY="44.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #00A65A; -fx-text-fill: white; -fx-font-size: 14;" text="Inserir" />
+      <Button fx:id="btnDeletar" onAction="#Deletar" layoutX="1029.0" layoutY="624.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="Deletar" />
 
       <TableView fx:id="tableView" layoutX="14.0" layoutY="98.0" prefHeight="518.0" prefWidth="1190.0">
         <columns>
