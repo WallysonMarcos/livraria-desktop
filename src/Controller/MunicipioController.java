@@ -54,11 +54,17 @@ public class MunicipioController implements Initializable
         tableView.setEditable(true);
 
         colId.setCellValueFactory( new PropertyValueFactory<Municipio,Integer>("id") );
+
         colUfid.setCellValueFactory((new PropertyValueFactory<Municipio,Integer>("uf_id")));
+        //colUfid.setOnEditCommit(SendCommitUfid);
+
         colNome.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getNome()) );
         colNome.setCellFactory(TextFieldTableCell.forTableColumn());
+        colNome.setOnEditCommit(SendCommitNome);
+
         colUfNome.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getEstado()) );
 
+        tableView.setOnMouseClicked(TableClick);
         tableView.setItems(munDao.listarTodos());
 
     }
@@ -89,31 +95,7 @@ public class MunicipioController implements Initializable
         cbuf.setOnAction(ComboAction);
     }
 
-    private EventHandler<MouseEvent> ComboClick = evt -> {
-        ufd = new UfDAO();
-        cbuf.setItems(ufd.listarTodos());
-        System.out.println("Estado size: " + ufd.listarTodos().size());
-    };
-    private EventHandler<ActionEvent> ComboAction = evt -> {
-        CbObjetoSelecionado = cbuf.getSelectionModel().getSelectedItem();
-        if (CbObjetoSelecionado != null)
-            System.out.println("Selecionado: " + CbObjetoSelecionado.getNome());
-    };
 
-    private Callback<ListView<Uf>,ListCell<Uf>> ComboFactory = evt ->
-    {
-        return new ListCell<Uf>() {
-            @Override
-            protected void updateItem(Uf item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item == null || empty) {
-                    setGraphic(null);
-                } else {
-                    setText(item.getUf() + " - " + item.getNome());
-                }
-            }
-        };
-    };
 
     public void Inserir()
     {
@@ -151,5 +133,54 @@ public class MunicipioController implements Initializable
         InitCombox();
         txfNome.requestFocus();
     }
+
+
+
+    private EventHandler<MouseEvent> TableClick = evt -> {
+        TbObjetoSelecionado = tableView.getSelectionModel().getSelectedItem();
+        if (TbObjetoSelecionado != null)
+            System.out.println("Selecionado: " + TbObjetoSelecionado.getNome());
+    };
+
+
+
+    private EventHandler<TableColumn.CellEditEvent<Municipio, Integer> > SendCommitUfid = evt -> {
+        ((Municipio) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setUf_id(evt.getNewValue());
+        munDao.alterar( ((Municipio) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Municipio, String> > SendCommitNome = evt -> {
+        ((Municipio) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setNome(evt.getNewValue());
+        munDao.alterar( ((Municipio) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<MouseEvent> ComboClick = evt -> {
+        ufd = new UfDAO();
+        cbuf.setItems(ufd.listarTodos());
+    };
+    private EventHandler<ActionEvent> ComboAction = evt -> {
+        CbObjetoSelecionado = cbuf.getSelectionModel().getSelectedItem();
+        if (CbObjetoSelecionado != null)
+            System.out.println("Selecionado: " + CbObjetoSelecionado.getNome());
+    };
+
+    private Callback<ListView<Uf>,ListCell<Uf>> ComboFactory = evt ->
+    {
+        return new ListCell<Uf>() {
+            @Override
+            protected void updateItem(Uf item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    setText(item.getUf() + " - " + item.getNome());
+                }
+            }
+        };
+    };
 
 }

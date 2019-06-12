@@ -80,4 +80,24 @@ public class MunicipioDAO extends ConnectionMgr
             throw new RuntimeException(e);
         }
     }
+
+    public void alterar(Municipio mun)
+    {
+        String sql = "update municipio set uf = ?, nome = ? where id = ?";
+
+        try {
+
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            stmt.setInt(1, mun.getUf_id());
+            stmt.setString(2, mun.getNome());
+            stmt.execute();
+
+            System.out.println("Alterado " + mun.getNome());
+            super.CloseConnection();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -1,15 +1,20 @@
 package Model;
 
-import java.util.Date;
+
+import java.time.LocalDate;
 
 public class Livro
 {
     private int id;
     private String titulo;
-    private Date data_lancamento;
+    private LocalDate data_lancamento;
     private int quantidade;
     private float preco;
     private int editora_id;
+    private String editora;
+
+    public Livro() {
+    }
 
     public int getId() {
         return id;
@@ -27,11 +32,11 @@ public class Livro
         this.titulo = titulo;
     }
 
-    public Date getData_lancamento() {
+    public LocalDate getData_lancamento() {
         return data_lancamento;
     }
 
-    public void setData_lancamento(Date data_lancamento) {
+    public void setData_lancamento(LocalDate data_lancamento) {
         this.data_lancamento = data_lancamento;
     }
 
@@ -57,5 +62,13 @@ public class Livro
 
     public void setEditora_id(int editora_id) {
         this.editora_id = editora_id;
+    }
+
+    public String getEditora() {
+        return editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
     }
 }

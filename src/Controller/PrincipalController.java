@@ -4,7 +4,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import com.jfoenix.controls.JFXButton;
 import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,17 +16,14 @@ public class PrincipalController implements Initializable
 {
 
     @FXML private AnchorPane holderPane;
-    @FXML private Button btnAutores,btnHome,btnPricing1;
 
-    AnchorPane AfDashboard, AfAutores, AfMunicipios, AfUfs;
+    AnchorPane AfDashboard, AfAutores, AfEditoras, AfLivros, AfMunicipios, AfUfs;
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try {
+        try
+        {
             AfDashboard = FXMLLoader.load(getClass().getResource("/View/Dashboard.fxml"));
-            AfAutores = FXMLLoader.load(getClass().getResource("/View/Autores.fxml"));
-            AfMunicipios = FXMLLoader.load(getClass().getResource("/View/Municipios.fxml"));
-            AfUfs = FXMLLoader.load(getClass().getResource("/View/Ufs.fxml"));
             this.setNode(AfDashboard);
         }catch (Exception e) {
             System.out.println("Erro ao iniciar PrincipalController");
@@ -40,7 +36,7 @@ public class PrincipalController implements Initializable
         holderPane.getChildren().clear();
         holderPane.getChildren().add((Node) node);
 
-        FadeTransition ft = new FadeTransition(Duration.millis(300));
+        FadeTransition ft = new FadeTransition(Duration.millis(600));
         ft.setNode(node);
         ft.setFromValue(0.1);
         ft.setToValue(1);
@@ -50,7 +46,8 @@ public class PrincipalController implements Initializable
     }
 
     @FXML
-    private void toHome(ActionEvent event) {
+    private void toHome(ActionEvent event)
+    {
         try
         {
             this.setNode(AfDashboard);
@@ -58,13 +55,13 @@ public class PrincipalController implements Initializable
             System.out.println("Erro ao toAutores");
             System.out.println(e);
         }
-
     }
 
     @FXML
     private void toAutores(ActionEvent event) {
         try
         {
+            AfAutores = FXMLLoader.load(getClass().getResource("/View/Autores.fxml"));
             this.setNode(AfAutores);
         }catch (Exception e) {
             System.out.println("Erro ao toAutores");
@@ -74,22 +71,55 @@ public class PrincipalController implements Initializable
     }
 
     @FXML
-    private void toEditoras(ActionEvent event) {
-        //setNode(pricing);
+    private void toEditoras(ActionEvent event)
+    {
+        try
+        {
+            AfEditoras = FXMLLoader.load(getClass().getResource("/View/Editoras.fxml"));
+            setNode(AfEditoras);
+        }catch (Exception e) {
+            System.out.println("Erro ao toEditoras");
+            System.out.println(e);
+        }
     }
 
     @FXML
-    private void toLivros(ActionEvent event) {
-        //setNode(pricing);
+    private void toLivros(ActionEvent event)
+    {
+        try
+        {
+            AfLivros = FXMLLoader.load(getClass().getResource("/View/Livros.fxml"));
+            setNode(AfLivros);
+        }catch (Exception e) {
+            System.out.println("Erro ao toMunicipio");
+            System.out.println(e);
+        }
     }
 
     @FXML
-    private void toEstado (ActionEvent event) {
-        setNode(AfUfs);
+    private void toEstado (ActionEvent event)
+    {
+        try
+        {
+            AfUfs = FXMLLoader.load(getClass().getResource("/View/Ufs.fxml"));
+            setNode(AfUfs);
+        }catch (Exception e) {
+            System.out.println("Erro ao toEstado");
+            System.out.println(e);
+        }
     }
 
     @FXML
-    private void toMunicipio (ActionEvent event) {
-        setNode(AfMunicipios);
+    private void toMunicipio (ActionEvent event)
+    {
+        try
+        {
+            AfMunicipios = FXMLLoader.load(getClass().getResource("/View/Municipios.fxml"));
+            setNode(AfMunicipios);
+        }catch (Exception e) {
+            System.out.println("Erro ao toMunicipio");
+            System.out.println(e);
+        }
+
     }
 }
