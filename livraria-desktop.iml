@@ -10,5 +10,6 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="dashboard" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0" level="project" />
+    <orderEntry type="library" name="fontawesomefx-fontawesome-4.7.0-5" level="project" />
   </component>
 </module>

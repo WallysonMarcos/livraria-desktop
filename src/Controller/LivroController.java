@@ -3,6 +3,7 @@ import DAO.EditoraDAO;
 import Model.Editora;
 import Model.Livro;
 import DAO.LivroDAO;
+import com.sun.javafx.scene.control.behavior.DatePickerBehavior;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,7 @@ import javafx.beans.value.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import javafx.util.converter.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -36,6 +38,8 @@ public class LivroController implements Initializable
     @FXML private ComboBox<Editora> cbEdt = new ComboBox();
     @FXML private TextField txfTitulo,txfQuant, txfPreco;
     @FXML private DatePicker dpLanc;
+
+
 
     private LivroDAO livroDao = new LivroDAO();
     private EditoraDAO editoraDao = new EditoraDAO();
@@ -103,10 +107,16 @@ public class LivroController implements Initializable
         colTit.setOnEditCommit(SendCommitTitulo);
 
         colQtd.setCellValueFactory(new PropertyValueFactory<Livro,Integer>("quantidade") );
+        colQtd.setCellFactory(TextFieldTableCell.<Livro, Integer>forTableColumn(new IntegerStringConverter()));
+        colQtd.setOnEditCommit(SendCommitQuant);
 
         colPrc.setCellValueFactory(new PropertyValueFactory<Livro,Float>("preco") );
+        colPrc.setCellFactory(TextFieldTableCell.<Livro, Float>forTableColumn(new FloatStringConverter()));
+        colPrc.setOnEditCommit(SendCommitPreco);
 
         colDtLan.setCellValueFactory(new PropertyValueFactory<Livro,LocalDate>("data_lancamento") );
+        colDtLan.setCellFactory(TextFieldTableCell.<Livro, LocalDate>forTableColumn(new LocalDateStringConverter()));
+        colDtLan.setOnEditCommit(SendCommitDtLan);
 
         colEdit.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getEditora()) );
 
@@ -114,6 +124,27 @@ public class LivroController implements Initializable
         tableView.setOnMouseClicked(TableClick);
 
     }
+
+    private EventHandler<TableColumn.CellEditEvent<Livro, LocalDate> > SendCommitDtLan = evt -> {
+        ((Livro) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setData_lancamento(evt.getNewValue());
+        livroDao.Alterar( ((Livro) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Livro, Float> > SendCommitPreco = evt -> {
+        ((Livro) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setPreco(evt.getNewValue());
+        livroDao.Alterar( ((Livro) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
+
+    private EventHandler<TableColumn.CellEditEvent<Livro, Integer> > SendCommitQuant = evt -> {
+        ((Livro) evt.getTableView().getItems().get(
+                evt.getTablePosition().getRow())
+        ).setQuantidade(evt.getNewValue());
+        livroDao.Alterar( ((Livro) evt.getTableView().getItems().get(evt.getTablePosition().getRow())));
+    };
 
     private EventHandler<TableColumn.CellEditEvent<Livro, String> > SendCommitTitulo = evt -> {
         ((Livro) evt.getTableView().getItems().get(
