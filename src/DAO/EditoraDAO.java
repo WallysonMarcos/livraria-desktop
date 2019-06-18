@@ -131,4 +131,27 @@ public class EditoraDAO extends ConnectionMgr
             throw new RuntimeException(e);
         }
     }
+
+    public int Count()
+    {
+        int num_editora = 0;
+        String sql = "select count(*) from editoras";
+
+        try
+        {
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            ResultSet resultados = stmt.executeQuery();
+
+            while (resultados.next())
+            {
+                num_editora = resultados.getInt(1);
+            }
+            super.CloseConnection();
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+        return num_editora;
+    }
 }

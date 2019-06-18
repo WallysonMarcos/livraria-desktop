@@ -62,6 +62,28 @@ public class AutorDAO extends ConnectionMgr
         return data;
     }
 
+
+    public int Count()
+    {
+        int num_autores = 0;
+        String sql = "select count(*) from autores";
+
+        try
+        {
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            ResultSet resultados = stmt.executeQuery();
+            while (resultados.next()) {
+                num_autores = resultados.getInt(1);
+            }
+            super.CloseConnection();
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+        return num_autores;
+    }
+
     public void alterar(Autor autor)
     {
         String sql = "update autores set nome = ?, email = ? where id = ?";

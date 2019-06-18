@@ -2,9 +2,13 @@ package Controller;
 
 import DAO.EditoraDAO;
 import DAO.MunicipioDAO;
+import DAO.UfDAO;
 import Model.Editora;
 import Model.Municipio;
+import Model.Uf;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,18 +39,21 @@ public class EditoraController  implements Initializable
 
     @FXML private Button btnList,btnSalvar,btnDeletar;
     @FXML private ComboBox<Municipio> cbMun = new ComboBox();
+    @FXML private ComboBox<Uf> cbEst = new ComboBox();
     @FXML private TextField txfNome,txfEnd, txfSite, txfBairro, txfTel;
 
     private Editora editora = new Editora();
     private EditoraDAO editoraDAO = new EditoraDAO();
     private Editora EdtObjetoSelecionado;
     private Municipio MunObjetoSelecionado;
+    private Uf UfObjetoSelecionado;
     private MunicipioDAO munDAO = new MunicipioDAO();
-
+    private UfDAO ufDao = new UfDAO();
+    private ObservableList ListMun = null;
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        InitCombox();
+        InitComboxUf();
         InitTable();
     }
 
@@ -99,13 +106,36 @@ public class EditoraController  implements Initializable
     }
 
 
-    public void InitCombox()
+    public void InitComboxUf()
+    {
+        cbMun.setDisable(true);
+        cbEst.setPromptText("Selecione um Estado");
+        cbEst.cellFactoryProperty();
+        cbEst.setOnMouseClicked(ComboClickUf);
+        cbEst.setCellFactory(ComboFactoryUf);
+        cbEst.setOnAction(ComboActionUf);
+        cbEst.setConverter(new StringConverter<Uf>() {
+            @Override
+            public String toString(Uf mun) {
+                if (mun == null){
+                    return null;
+                } else {
+                    return mun.getNome();
+                }
+            }
+            @Override
+            public Uf fromString(String munId) {
+                return null;
+            }
+        });
+    }
+
+    public void InitComboxMun()
     {
         cbMun.setPromptText("Selecione um Municipio");
         cbMun.cellFactoryProperty();
-        cbMun.setOnMouseClicked(ComboClick);
-        cbMun.setCellFactory(ComboFactory);
-        cbMun.setOnAction(ComboAction);
+        cbMun.setCellFactory(ComboFactoryMun);
+        cbMun.setOnAction(ComboActionMun);
         cbMun.setConverter(new StringConverter<Municipio>() {
             @Override
             public String toString(Municipio mun) {
@@ -122,15 +152,45 @@ public class EditoraController  implements Initializable
         });
     }
 
-    private EventHandler<MouseEvent> ComboClick = evt -> {
-        cbMun.setItems(munDAO.listarTodos());
+    private EventHandler<MouseEvent> ComboClickUf = evt -> {
+        cbMun.setItems(null);
+        cbEst.setItems(ufDao.listarTodos());
     };
-    private EventHandler<ActionEvent> ComboAction = evt -> {
+    private EventHandler<ActionEvent> ComboActionUf = evt -> {
+        UfObjetoSelecionado = cbEst.getSelectionModel().getSelectedItem();
+        if (UfObjetoSelecionado != null)
+        {
+            System.out.println("Selecionado: " + UfObjetoSelecionado.getNome());
+            cbMun.setDisable(false);
+            ListMun = munDAO.ListarPorEstado(UfObjetoSelecionado.getId());
+            cbMun.setItems(ListMun);
+            cbMun.setVisibleRowCount(ListMun.size());
+            cbMun.autosize();
+            InitComboxMun();
+        }
+
+    };
+    private Callback<ListView<Uf>,ListCell<Uf>> ComboFactoryUf = evt ->
+    {
+        return new ListCell<Uf>() {
+            @Override
+            protected void updateItem(Uf item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    setText(item.getNome());
+                }
+            }
+        };
+    };
+
+    private EventHandler<ActionEvent> ComboActionMun = evt -> {
         MunObjetoSelecionado = cbMun.getSelectionModel().getSelectedItem();
         if (MunObjetoSelecionado != null)
             System.out.println("Selecionado: " + MunObjetoSelecionado.getNome());
     };
-    private Callback<ListView<Municipio>,ListCell<Municipio>> ComboFactory = evt ->
+    private Callback<ListView<Municipio>,ListCell<Municipio>> ComboFactoryMun = evt ->
     {
         return new ListCell<Municipio>() {
             @Override
@@ -171,12 +231,27 @@ public class EditoraController  implements Initializable
         colTel.setCellFactory(TextFieldTableCell.forTableColumn());
         colTel.setOnEditCommit(SendCommitTel);
 
-        colMun.setCellValueFactory((param) -> new SimpleStringProperty(param.getValue().getMunicipio()) );
-        colMun.setCellFactory(ComboBoxTableCell.forTableColumn());
+        colMun.setCellValueFactory( (param) -> new SimpleStringProperty(param.getValue().getMunicipio()) );
+        colMun.setCellFactory( ComboBoxTableCell.<Municipio,String>forTableColumn(  munDAO.listarTodos() ));
 
         tableView.setItems(editoraDAO.ListarTodos());
         tableView.setOnMouseClicked(TableClick);
     }
+
+    private Callback<ListView<Municipio>,ListCell<Municipio>> ComboBoxTableCellMun = evt ->
+    {
+        return new ListCell<Municipio>() {
+            @Override
+            protected void updateItem(Municipio item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    setText(item.getNome());
+                }
+            }
+        };
+    };
 
     private EventHandler<MouseEvent> TableClick = evt -> {
         EdtObjetoSelecionado = tableView.getSelectionModel().getSelectedItem();

@@ -63,6 +63,40 @@ public class MunicipioDAO extends ConnectionMgr
         return data;
     }
 
+
+    public ObservableList ListarPorEstado( int estado_id)
+    {
+        String sql = "select mun.id as id, mun.nome as nome, mun.uf_id as uf_id, uf.nome as ufnome from municipio as mun "+
+                "inner join ufs as uf  on uf.id = mun.uf_id" +
+                " where mun.uf_id = ?";
+
+        List<Municipio> muns = new ArrayList<>();
+
+        try
+        {
+            super.InitConnection();
+            PreparedStatement stmt = super.getConexao().prepareStatement(sql);
+            stmt.setInt(1, estado_id);
+            ResultSet resultados = stmt.executeQuery();
+
+            while (resultados.next()){
+                Municipio mun = new Municipio();
+                mun.setId(resultados.getInt(1));
+                mun.setNome(resultados.getString(2));
+                mun.setUf_id(resultados.getInt(3));
+                mun.setEstado(resultados.getString(4));
+                muns.add(mun);
+            }
+            super.CloseConnection();
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar todos municipios por Estado");
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+        ObservableList data = FXCollections.observableList(muns);
+        return data;
+    }
+
     public void Deletar(Municipio mun)
     {
         String sql = "delete from municipio where id = ?";

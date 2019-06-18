@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="680.0" prefWidth="1219.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditoraController">
     <children>
-        <Button fx:id="btnList" onAction="#InitTable" layoutX="1111.0" layoutY="624.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Atualizar" />
-        <Button fx:id="btnSalvar" onAction="#Inserir" layoutX="1094.0" layoutY="86.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #00A65A; -fx-text-fill: white; -fx-font-size: 14;" text="Inserir" />
-        <Button fx:id="btnDeletar" onAction="#Deletar" layoutX="1029.0" layoutY="624.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="Deletar" />
+        <Button fx:id="btnList" layoutX="1111.0" layoutY="624.0" mnemonicParsing="false" onAction="#InitTable" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #26B99A; -fx-text-fill: white; -fx-font-size: 14;" text="Atualizar" />
+        <Button fx:id="btnSalvar" layoutX="1094.0" layoutY="86.0" mnemonicParsing="false" onAction="#Inserir" prefHeight="30.0" prefWidth="110.0" style="-fx-background-color: #00A65A; -fx-text-fill: white; -fx-font-size: 14;" text="Inserir" />
+        <Button fx:id="btnDeletar" layoutX="1029.0" layoutY="624.0" mnemonicParsing="false" onAction="#Deletar" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #DD4B39; -fx-text-fill: white; -fx-font-size: 14;" text="Deletar" />
 
         <TableView fx:id="tableView" layoutX="14.0" layoutY="130.0" prefHeight="486.0" prefWidth="1190.0">
             <columns>
@@ -29,10 +29,11 @@
         </TableView>
         <TextField fx:id="txfNome" layoutX="16.0" layoutY="46.0" prefHeight="25.0" prefWidth="417.0" promptText="Nome" />
         <TextField fx:id="txfEnd" layoutX="446.0" layoutY="46.0" prefHeight="25.0" prefWidth="417.0" promptText="Endereço" />
-        <TextField fx:id="txfSite"  layoutX="880.0" layoutY="46.0" prefHeight="25.0" prefWidth="320.0" promptText="Site" />
-        <TextField fx:id="txfBairro" layoutX="14.0" layoutY="88.0" prefHeight="25.0" prefWidth="417.0" promptText="Bairro" />
-        <TextField fx:id="txfTel" layoutX="446.0" layoutY="88.0" prefHeight="25.0" prefWidth="245.0" promptText="Telefone" />
-        <ComboBox fx:id="cbMun" layoutX="701.0" layoutY="88.0" prefHeight="25.0" prefWidth="381.0" promptText="Selecione um Municipio" />
+        <TextField fx:id="txfSite" layoutX="880.0" layoutY="46.0" prefHeight="25.0" prefWidth="320.0" promptText="Site" />
+        <TextField fx:id="txfBairro" layoutX="14.0" layoutY="88.0" prefHeight="25.0" prefWidth="282.0" promptText="Bairro" />
+        <TextField fx:id="txfTel" layoutX="311.0" layoutY="88.0" prefHeight="25.0" prefWidth="221.0" promptText="Telefone" />
+        <ComboBox fx:id="cbMun" disable="true" layoutX="777.0" layoutY="88.0" prefHeight="25.0" prefWidth="305.0" promptText="Selecione um Municipio" />
+      <ComboBox fx:id="cbEst" layoutX="545.0" layoutY="88.0" prefHeight="25.0" prefWidth="221.0" promptText="Selecione um Estado" />
 
     </children>
 </AnchorPane>
